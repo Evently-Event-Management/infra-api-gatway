@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .authorizeExchange(exchange -> exchange
                         .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .pathMatchers("/api/event-query/**").permitAll()
-                        .pathMatchers("/api/orders/tickets/count").permitAll()
+                        .pathMatchers("/api/order/tickets/count").permitAll()
                         .anyExchange().authenticated()
                 )
                 // Configure the gateway as a Resource Server to validate incoming JWTs.
