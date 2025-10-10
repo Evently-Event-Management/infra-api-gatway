@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .pathMatchers("/api/event-query/**").permitAll()
                         .pathMatchers("/api/order/tickets/count").permitAll()
+                        .pathMatchers("/api/order/webhook/stripe").permitAll()
                         .anyExchange().authenticated()
                 )
                 // Configure the gateway as a Resource Server to validate incoming JWTs.
