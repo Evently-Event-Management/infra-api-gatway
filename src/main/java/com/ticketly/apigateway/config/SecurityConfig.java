@@ -42,6 +42,9 @@ public class SecurityConfig {
                         .pathMatchers("/api/event-query/**").permitAll()
                         .pathMatchers("/api/order/tickets/count").permitAll()
                         .pathMatchers("/api/order/webhook/stripe").permitAll()
+                        // Health endpoints for all microservices
+                        .pathMatchers("/api/*/health").permitAll()
+                        .pathMatchers("/health").permitAll()
                         .anyExchange().authenticated()
                 )
                 // Configure the gateway as a Resource Server to validate incoming JWTs.
