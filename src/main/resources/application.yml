@@ -28,10 +28,10 @@ spring:
               uri: ${ORDER_SERVICE_URI:http://localhost:8084}
               predicates:
                 - Path=/api/order/**
-            - id: payment_service_route
-              uri: ${PAYMENT_SERVICE_URI:http://localhost:8085}
+            - id: scheduler_service_route
+              uri: ${SCHEDULER_SERVICE_URI:http://localhost:8085}
               predicates:
-                - Path=/api/payment/**
+                - Path=/api/scheduler/**
 
 # Detailed logging configuration for development
 logging:
