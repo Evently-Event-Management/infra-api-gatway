@@ -4,17 +4,21 @@ server:
 spring:
   application:
     name: api-gateway
-
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://auth.ticketly.com:8080/realms/event-ticketing}
-          jwk-set-uri: ${KEYCLOAK_JWK_SET_URI:http://auth.ticketly.com:8080/realms/event-ticketing/protocol/openid-connect/certs}
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin Access-Control-Allow-Methods Access-Control-Allow-Headers Access-Control-Expose-Headers Access-Control-Max-Age,RETAIN_LAST
       server:
         webflux:
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowed-origin-patterns: "http://*.localhost:*"
+                allowed-methods: "*"
+                allowed-headers: "*"
+                allow-credentials: true
+                max-age: 3600
+            add-to-simple-url-handler-mapping: true
           routes:
             - id: event_seating_service_route
               uri: ${EVENT_SEATING_SERVICE_URI:http://localhost:8081}
@@ -42,7 +46,6 @@ logging:
     org.springframework.web.reactive: ${LOG_LEVEL_SPRING_WEB_REACTIVE:DEBUG}
     reactor.netty: ${LOG_LEVEL_REACTOR_NETTY:DEBUG}
     reactor.netty.http.client: ${LOG_LEVEL_REACTOR_NETTY_HTTP_CLIENT:DEBUG}
-    org.springframework.security: ${LOG_LEVEL_SPRING_SECURITY:DEBUG}
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
