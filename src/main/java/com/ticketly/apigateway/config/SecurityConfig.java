@@ -11,14 +11,20 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
+    
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http
                 // We're using our custom corsFilter instead of default cors
-                .cors(cors -> cors.disable())
+                .cors(ServerHttpSecurity.CorsSpec::disable)
                 .authorizeExchange(exchange -> exchange
                         .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .pathMatchers("/api/event-query/**").permitAll() 
+                        .pathMatchers("/api/event-query/**").permitAll()
+                        .pathMatchers("/api/order/tickets/count").permitAll()
+                        .pathMatchers("/api/order/webhook/stripe").permitAll()
+                        // Health endpoints for all microservices
+                        .pathMatchers("/api/*/health").permitAll()
+                        .pathMatchers("/health").permitAll()
                         .anyExchange().authenticated()
                 )
                 // Configure the gateway as a Resource Server to validate incoming JWTs.
