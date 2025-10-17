@@ -36,13 +36,13 @@ spring:
 # Detailed logging configuration for development
 logging:
   level:
-    root: INFO
-    org.springframework.cloud.gateway: DEBUG
-    org.springframework.http.server.reactive: DEBUG
-    org.springframework.web.reactive: DEBUG
-    reactor.netty: DEBUG
-    reactor.netty.http.client: DEBUG
-    org.springframework.security: DEBUG
+    root: ${LOG_LEVEL_ROOT:INFO}
+    org.springframework.cloud.gateway: ${LOG_LEVEL_SPRING_CLOUD_GATEWAY:DEBUG}
+    org.springframework.http.server.reactive: ${LOG_LEVEL_SPRING_HTTP_SERVER_REACTIVE:DEBUG}
+    org.springframework.web.reactive: ${LOG_LEVEL_SPRING_WEB_REACTIVE:DEBUG}
+    reactor.netty: ${LOG_LEVEL_REACTOR_NETTY:DEBUG}
+    reactor.netty.http.client: ${LOG_LEVEL_REACTOR_NETTY_HTTP_CLIENT:DEBUG}
+    org.springframework.security: ${LOG_LEVEL_SPRING_SECURITY:DEBUG}
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
