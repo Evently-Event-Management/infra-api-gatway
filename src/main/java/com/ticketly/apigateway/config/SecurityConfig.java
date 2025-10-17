@@ -1,5 +1,7 @@
 package com.ticketly.apigateway.config;
 
+import java.util.Collections;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,7 +20,7 @@ public class SecurityConfig {
                 // We're using our custom corsFilter instead of default cors
                 .cors(ServerHttpSecurity.CorsSpec::disable)
                 .authorizeExchange(exchange -> exchange
-                        .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .pathMatchers(HttpMethod.OPTIONS).permitAll() // Allow CORS preflight requests
                         .pathMatchers("/api/event-query/**").permitAll()
                         .pathMatchers("/api/order/tickets/count").permitAll()
                         .pathMatchers("/api/order/webhook/stripe").permitAll()
